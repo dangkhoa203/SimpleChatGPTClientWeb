@@ -1,17 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 function App() {
 
-    const te = JSON.parse(localStorage.getItem("History"))
+    const history = JSON.parse(localStorage.getItem("History"))
     const [message, setMessage] = useState([]);
     const [prompt, setPrompt] = useState("");
     const [btnstate, setBtn] = useState(false)
     const [modalstate, setModalstate] = useState(false)
+    const messagesEndRef = useRef(null)
     useEffect(() => {
-        if (te !== null) {
-            setMessage(te)
+        if (history !== null) {
+            setMessage(history)
         }
         document.body.addEventListener("pointermove", (e) => {
             const { currentTarget: el, clientX: x, clientY: y } = e;
@@ -24,6 +25,7 @@ function App() {
         if (message.length !== 0) {
             localStorage.setItem("History", JSON.stringify(message))
         }
+        handleScrollToBottom()
     }, [message])
     const changePrompt = (e) => {
         setPrompt(e.target.value)
@@ -38,6 +40,10 @@ function App() {
             SendChat()
         }
     }
+    const handleScrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    };
+
     return (
         <>
             <div className='background'></div>
@@ -53,17 +59,18 @@ function App() {
                                 </div>
                             </>
                         )}
+                    <div ref={messagesEndRef} />
                 </div>
             </div>
             <div className='container-fluid d-flex gap-3 p-0 flex-column mt-3  m-0'>
                 <input className='rounded-pill text-warning' placeholder='Enter your prompt here' onKeyDown={enter} value={prompt} type="text" onChange={changePrompt} />
                 <div className='d-flex justify-content-end gap-3'>
-                    <a  className='btn btn-danger w-50' onClick={() => { setModalstate(true) }}> <p className='acttext'>Clear history</p> </a>
-                    <a  className={'btn btn-success w-50 ' + (btnstate ? "disabled" : "")} onClick={SendChat} disabled={btnstate}> <p className='acttext'>{btnstate ? <>
+                    <a className='btn btn-danger w-50' onClick={() => { setModalstate(true) }}> <p className='acttext'>Clear history</p> </a>
+                    <a className={'btn btn-success w-50 ' + (btnstate ? "disabled" : "")} onClick={SendChat} disabled={btnstate}> <p className='acttext'>{btnstate ? <>
                         <span className="spinner-grow spinner-grow-sm ms-1" role="status" aria-hidden="true"></span>
                         <span className="spinner-grow spinner-grow-sm ms-1" role="status" aria-hidden="true"></span>
                         <span className="spinner-grow spinner-grow-sm ms-1" role="status" aria-hidden="true"></span>
-                         <span className='ms-1'>Loading...</span> 
+                        <span className='ms-1'>Loading...</span>
                     </> : "Send prompt"} </p> </a>
                 </div>
             </div>
@@ -72,7 +79,7 @@ function App() {
             <div className={'modalpanel ' + (modalstate ? "modal-active" : "")}>
                 <div className='modalpanel-content  bg-warning m-auto d-flex justify-content-between flex-column'>
                     <div className='container-fluid d-flex justify-content-end'>
-                        <a  className='link-dark' onClick={() => { setModalstate(false) }}><i className="bi bi-x-lg"></i></a>
+                        <a className='link-dark' onClick={() => { setModalstate(false) }}><i className="bi bi-x-lg"></i></a>
                     </div>
                     <div className='modalpanel-content-text p-3'>
                         Are you sure you want to delete your chat log ?
