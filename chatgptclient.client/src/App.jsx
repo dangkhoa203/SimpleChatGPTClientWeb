@@ -54,8 +54,8 @@ function App() {
                         message.map((c, i) =>
                             <>
                                 <div key={i}>
-                                    <p className=' text-primary'>({new Date(c.timeOfPrompt).toLocaleString('En-GB', { hour12: false })}) User: {c.prompt}</p>
-                                    <p className=' text-success'>({new Date(c.timeOfMessage).toLocaleString('En-GB', { hour12: false })}) Bot: {c.message}</p>
+                                    <pre className=' text-primary'>({new Date(c.timeOfPrompt).toLocaleString('En-GB', { hour12: false })}) User: {c.prompt}</pre>
+                                    <pre className=' text-success'>({new Date(c.timeOfMessage).toLocaleString('En-GB', { hour12: false })}) Bot: {c.message}</pre>
                                 </div>
                             </>
                         )}
