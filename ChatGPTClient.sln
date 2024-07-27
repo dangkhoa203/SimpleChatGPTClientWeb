@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatGPTClient.Server", "ChatGPTClient.Server\ChatGPTClient.Server.csproj", "{D2BEABD0-9CCA-4FE9-A3D6-51D2453C3FEE}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "chatgptclient.client", "chatgptclient.client\chatgptclient.client.esproj", "{99433008-833B-428B-B8F0-5F1869841CEC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D2BEABD0-9CCA-4FE9-A3D6-51D2453C3FEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2BEABD0-9CCA-4FE9-A3D6-51D2453C3FEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2BEABD0-9CCA-4FE9-A3D6-51D2453C3FEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2BEABD0-9CCA-4FE9-A3D6-51D2453C3FEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99433008-833B-428B-B8F0-5F1869841CEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99433008-833B-428B-B8F0-5F1869841CEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99433008-833B-428B-B8F0-5F1869841CEC}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{99433008-833B-428B-B8F0-5F1869841CEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99433008-833B-428B-B8F0-5F1869841CEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99433008-833B-428B-B8F0-5F1869841CEC}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {55E7293D-3961-49DC-9D57-258B7D892642}
+	EndGlobalSection
+EndGlobal
