@@ -7,7 +7,7 @@ function App() {
     const history = JSON.parse(localStorage.getItem("History"))
     const [message, setMessage] = useState([]);
     const [prompt, setPrompt] = useState("");
-    const [btnstate, setBtn] = useState(false)
+    const [btnstate, setBtnstate] = useState(false)
     const [modalstate, setModalstate] = useState(false)
     const messagesEndRef = useRef(null)
     useEffect(() => {
@@ -33,6 +33,7 @@ function App() {
     const clear = () => {
         setMessage([])
         localStorage.clear()
+        ClearHistory()
         setModalstate(false)
     }
     const enter = (e) => {
@@ -65,7 +66,12 @@ function App() {
             <div className='container-fluid d-flex gap-3 p-0 flex-column mt-3  m-0'>
                 <input className='rounded-pill text-warning' placeholder='Enter your prompt here' onKeyDown={enter} value={prompt} type="text" onChange={changePrompt} />
                 <div className='d-flex justify-content-end gap-3'>
-                    <a className='btn btn-danger w-50' onClick={() => { setModalstate(true) }}> <p className='acttext'>Clear history</p> </a>
+                    <a className={'btn btn-danger w-50 '+(btnstate ? "disabled" : "")} onClick={() => { setModalstate(true) }}> <p className='acttext'>{btnstate ? <>
+                        <span className="spinner-grow spinner-grow-sm ms-1" role="status" aria-hidden="true"></span>
+                        <span className="spinner-grow spinner-grow-sm ms-1" role="status" aria-hidden="true"></span>
+                        <span className="spinner-grow spinner-grow-sm ms-1" role="status" aria-hidden="true"></span>
+                        <span className='ms-1'>Loading...</span></> : "Clear history"}</p> </a>
+                    
                     <a className={'btn btn-success w-50 ' + (btnstate ? "disabled" : "")} onClick={SendChat} disabled={btnstate}> <p className='acttext'>{btnstate ? <>
                         <span className="spinner-grow spinner-grow-sm ms-1" role="status" aria-hidden="true"></span>
                         <span className="spinner-grow spinner-grow-sm ms-1" role="status" aria-hidden="true"></span>
@@ -101,7 +107,7 @@ function App() {
         }
         try {
 
-            setBtn(true)
+            setBtnstate(true)
             const response = await fetch('api/ChatAPI/chat', {
                 method: "POST",
                 body: JSON.stringify({ prompt }),
@@ -111,13 +117,27 @@ function App() {
             });
             const data = await response.json();
             setMessage(c => c = [...message, data])
-            console.log(data)
             setPrompt("")
 
         } catch (error) {
 
         } finally {
-            setBtn(false)
+            setBtnstate(false)
+        }
+    }
+    async function ClearHistory() {
+
+        try {
+            setBtnstate(true)
+            const response = await fetch('api/ChatAPI/erasehistory', {
+                method: "PUT"
+            })
+            const data = await response.json();
+            console.log(data)
+        }
+        catch (ex) { }
+        finally {
+            setBtnstate(false)
         }
     }
 }

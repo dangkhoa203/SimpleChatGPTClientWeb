@@ -4,14 +4,18 @@ using OpenAI_API.Chat;
 using OpenAI_API.Models;
 namespace ChatGPTClient.Server.Services {
     public interface IOpenAIService {
+        public IOpenAIAPI Client { get; }
+        public Conversation Conversation { get; set; }
         public Conversation CreateConversation();
         public Task<ChatPrompt> getResult(string prompt);
     }
     public class OpenAIService : IOpenAIService {
-        public IOpenAIAPI Client;
-        public Conversation Conversation;
-        public OpenAIService(IOpenAIAPI client) {
-            Client = client;
+        public IOpenAIAPI Client {
+            get;
+        }
+        public Conversation Conversation { get; set; }
+        public OpenAIService() {
+            Client = new OpenAIAPI("Add your apikey here");
             Conversation = CreateConversation();
         }
         public Conversation CreateConversation() {
