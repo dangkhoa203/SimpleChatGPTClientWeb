@@ -15,7 +15,7 @@ namespace ChatGPTClient.Server.Services {
         }
         public Conversation Conversation { get; set; }
         public OpenAIService() {
-            Client = new OpenAIAPI("Add your apikey here");
+            Client = new OpenAIAPI("Enter your key here");
             Conversation = CreateConversation();
         }
         public Conversation CreateConversation() {
